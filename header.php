@@ -45,8 +45,8 @@
     <nav>
         <ul>
             <li><a href="index.php">Home</a></li>
-            <li><a href="appointment_form.php">Appointment</a></li>
-            <li style="float:right"><a href="login_form.php">Login</a></li>
-            <li style="float:right"><a href="register_form.php">Register</a></li>
+            <li><a href="appointment.php">Appointment</a></li>
+            <li style="float:right"><a href="login.php">Login</a></li>
+            <li style="float:right"><a href="register.php">Register</a></li>
         </ul>
     </nav>
