@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <html>
 
 <head>
@@ -45,8 +49,18 @@
     <nav>
         <ul>
             <li><a href="index.php">Home</a></li>
-            <li><a href="appointment.php">Appointment</a></li>
-            <li style="float:right"><a href="login.php">Login</a></li>
-            <li style="float:right"><a href="register.php">Register</a></li>
+
+            <?php
+
+                if (isset($_SESSION["user_email"])) {
+                    echo "<li><a href='appointment.php'>Appointment</a></li>";
+                    echo "<li style='float:right'><a href='includes/logout-inc.php'>Logout</a></li>";
+                } else {
+                    echo "<li style='float:right'><a href='login.php'>Login</a></li>";
+                    echo "<li style='float:right'><a href='register.php'>Register</a></li>";
+                }
+                
+            ?>
+            
         </ul>
     </nav>
