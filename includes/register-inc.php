@@ -77,7 +77,3 @@ if (isset($_POST['submit'])) {
     header("location: ../register.php");
     exit();
 }
-
-?>
-<h3>Successfully registered!</h3>
-<p><a href="index.php">Go back to index page</a></p>

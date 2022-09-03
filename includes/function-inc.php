@@ -128,32 +128,26 @@ function existEmail($conn, $user_email) {
 
 }
 
-// bugs to be fixed - HKID was hashed in database, need to decrpyt before checking //
-/* 
 function existHKID($conn, $user_hkid) {
-    // create a sql statement to search if the HKID is already exist in the database
-    $sql = "SELECT * FROM users WHERE user_hkid = ?;";
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../register.php?error=stmtfailed");
-        exit();
-    }
+    $result;
 
-    mysqli_stmt_bind_param($stmt, "s", $user_hkid);
-    mysqli_stmt_execute($stmt);
+    $existUser = existEmail($conn, $user_email);
 
-    $resultData = mysqli_stmt_get_result($stmt);
+    $dbSalt = $existUser["user_salt"];
+    $dbHashedHKID = $existUser["user_hkid"];
 
-    if ($row = mysqli_fetch_assoc($resultData)) {
-        return $row;
+    $inputHKIDHashed = hash("sha512", $dbSalt . $user_hkid);
+
+    if (strcmp($dbHashedHKID, $inputHKIDHashed) == 0) {
+        // Returns < 0 if string1 is less than string2; > 0 if string1 is greater than string2, and 0 if they are equal.
+        // equal means the input HKID existed in database
+        $result = true;
     } else {
+        // HKID has not been registered, no error
         $result = false;
-        return $result;
     }
-
-    mysqli_stmt_close($stmt);
-
-} */
+    return $result;
+}
 
 function generateSalt($length)
 {
@@ -187,4 +181,43 @@ function createUser($conn, $user_name_e, $user_name_c, $user_gender, $user_date_
 
     header("location: ../register.php?error=none");
     exit();
+}
+
+function emptyInputLogin($user_email, $user_pwd) {
+    $result;
+    if (empty($user_email) || empty($user_pwd)) {
+        // some of the fields are empty, return error is true
+        $result = true;
+    } else {
+        // all fields were filled, no error
+        $result = false;
+    }
+    return $result;
+}
+
+function loginUser($conn, $user_email, $user_pwd) {
+    $existUser = existEmail($conn, $user_email);
+
+    if ($existUser === false) {
+        header("location: ../login.php?error=unregisteredemail");
+        exit();
+    }
+
+    $dbSalt = $existUser["user_salt"];
+    $dbHashedPwd = $existUser["user_pwd"];
+
+    $loginPwdHashed = hash("sha512", $dbSalt . $user_pwd);
+
+    if (strcmp($dbHashedPwd, $loginPwdHashed) !== 0) {
+        // Returns < 0 if string1 is less than string2; > 0 if string1 is greater than string2, and 0 if they are equal.
+        header("location: ../login.php?error=wrongpassword");
+        exit();
+    } elseif (strcmp($dbHashedPwd, $loginPwdHashed) == 0) {
+        session_start();
+
+        $_SESSION["user_id"] = $existUser["user_id"];
+        $_SESSION["user_email"] = $existUser["user_email"];
+        header("location: ../index.php");
+        exit();
+    }
 }

@@ -32,5 +32,19 @@
 </form>
 
 <?php
+    if (isset($_GET["error"])) {
+        if ($_GET["error"] == "emptyinput") {
+            echo "<p style='color:red;'>Please make sure all fields are filled.</p>";
+        } else if ($_GET["error"] == "invalidemail") {
+            echo "<p style='color:red;'>Please input a valid E-mail address.</p>";
+        } else if ($_GET["error"] == "unregisteredemail") {
+            echo "<p style='color:red;'>E-mail has not been registered. Please register before logging in.</p>";
+        } else if ($_GET["error"] == "wrongpassword") {
+            echo "<p style='color:red;'>Incorrect password. Please try again.</p>";
+        }
+    }
+?>
+
+<?php
     include_once 'footer.php'
 ?>
