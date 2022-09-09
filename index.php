@@ -10,9 +10,9 @@
 
 
 <?php
-    if (isset($_SESSION["user_email"])) {
-        $email = $_SESSION["user_email"];
-        echo "<h2>You are now logged in with $email<br/>You can make new appointments to apply or replace your HKID <a href='appointment.php' style='color:#2980B9;'>here</a>!</h2>";
+    if (isset($_SESSION["user_name_e"])) {
+        $user_name_e = $_SESSION["user_name_e"];
+        echo "<h2>Welcome $user_name_e !<br/>You can make new appointments to apply or replace your HKID <a href='appointment.php' style='color:#2980B9;'>here</a>!</h2>";
     } else {
         echo "<h2>Please login to the system for making new appointments.</h2>";
     }

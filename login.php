@@ -8,14 +8,14 @@
         <tr>
             <td width="200">E-mail Address</td>
             <td width="300"><label for="user_email"></label>
-                <input type="text" name="user_email" id="user_email" size="40" />
+                <input type="text" name="user_email" id="user_email" size="40" required/>
             </td>
         </tr>
 
         <tr>
             <td width="200">Password</td>
             <td width="300"><label for="user_pwd"></label>
-                <input type="password" name="user_pwd" id="user_pwd" size="40" />
+                <input type="password" name="user_pwd" id="user_pwd" size="40" required/>
             </td>
         </tr>
 
