@@ -95,6 +95,25 @@
     </table>
 </form>
 
+<?php
+
+if (isset($_GET["error"])) {
+    if ($_GET["error"] == "emptyinput") {
+        echo "<p style='color:red;'>Please make sure all fields are filled.</p>";
+    } else if ($_GET["error"] == "sessionerror") {
+        session_start();
+        session_unset();
+        session_destroy();
+        echo "<p style='color:red;'>Invalid session. Please login again.</p>";
+    } else if ($_GET["error"] == "none") {
+        $appt_date_time = $_SESSION["appt_date_time"];
+        $appt_location = $_SESSION["appt_location"];
+            echo "<p style='color:green;'>Successfully booked!<br/>Your appointment is now booked at $appt_date_time in $appt_location.<br/></p>";
+            unset($_SESSION["appt_date_time"]);
+            unset($_SESSION["appt_location"]);
+        }
+    }
+?>
 
 <?php
     include_once 'footer.php'

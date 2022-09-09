@@ -247,3 +247,46 @@ function loginUser($conn, $user_email, $user_pwd) {
         exit();
     }
 }
+
+function emptyInputAppointment($appt_date, $appt_time, $appt_location) {
+    $result;
+    if (empty($appt_date) || empty($appt_time) || empty($appt_location)) {
+        // some of the fields are empty, return error is true
+        $result = true;
+    } else {
+        // all fields were filled, no error
+        $result = false;
+    }
+    return $result;
+}
+
+function emptySession($user_id, $user_email) {
+    $result;
+    if (empty($user_id) || empty($user_email)) {
+        // empty session, return error is true
+        $result = true;
+    } else {
+        // user detail can be found in session, no error
+        $result = false;
+    }
+    return $result;
+}
+
+function createAppointment($conn, $appt_location, $appt_date_time, $user_id) {
+    // create a sql statement to insert a new appointment
+    $sql = "INSERT INTO appointments (user_id, appt_location, appt_date_time) VALUES (?, ?, ?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../appointment.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "iss", $user_id, $appt_location, $appt_date_time);
+    mysqli_stmt_execute($stmt);
+
+    $_SESSION["appt_date_time"] = $appt_date_time;
+    $_SESSION["appt_location"] = $appt_location;
+
+    header("location: ../appointment.php?error=none");
+    exit();
+}
