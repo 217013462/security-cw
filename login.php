@@ -8,7 +8,7 @@
         <tr>
             <td width="200">E-mail Address</td>
             <td width="300"><label for="user_email"></label>
-                <input type="text" name="user_email" id="user_email" size="40" required/>
+                <input type="email" name="user_email" id="user_email" size="40" required/>
             </td>
         </tr>
 

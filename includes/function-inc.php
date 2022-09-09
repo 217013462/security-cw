@@ -131,10 +131,35 @@ function existEmail($conn, $user_email) {
 function existHKID($conn, $user_hkid) {
     $result;
 
-    $existUser = existEmail($conn, $user_email);
+    $result = false;
 
-    $dbSalt = $existUser["user_salt"];
-    $dbHashedHKID = $existUser["user_hkid"];
+    return $result;
+
+    // BUG TO BE FIXED --- validate if HKID is exist in the database
+
+/*     // create a sql statement to search if the email is already exist in the database
+    $sql = "SELECT * FROM users ;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../register.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    if ($row = mysqli_fetch_assoc($resultData)) {
+        return $row;
+    } else {
+        $result = false;
+        return $result;
+    }
+
+    mysqli_stmt_close($stmt);
+
+    $dbSalt = $existHKID["user_salt"];
+    $dbHashedHKID = $existHKID["user_hkid"];
 
     $inputHKIDHashed = hash("sha512", $dbSalt . $user_hkid);
 
@@ -142,11 +167,11 @@ function existHKID($conn, $user_hkid) {
         // Returns < 0 if string1 is less than string2; > 0 if string1 is greater than string2, and 0 if they are equal.
         // equal means the input HKID existed in database
         $result = true;
-    } else {
+    } elseif (strcmp($dbHashedHKID, $inputHKIDHashed) !== 0) {
         // HKID has not been registered, no error
         $result = false;
     }
-    return $result;
+    return $result; */
 }
 
 function generateSalt($length)
