@@ -108,7 +108,7 @@ if (isset($_GET["error"])) {
     } else if ($_GET["error"] == "none") {
         $appt_date_time = $_SESSION["appt_date_time"];
         $appt_location = $_SESSION["appt_location"];
-            echo "<p style='color:green;'>Successfully booked!<br/>Your appointment is now booked at $appt_date_time in $appt_location.<br/></p>";
+            echo "<p style='color:green;'>Successfully booked!<br/>A confirmation e-mail has been sent to you.<br/>Your appointment is now booked at $appt_date_time in $appt_location.</p>";
             unset($_SESSION["appt_date_time"]);
             unset($_SESSION["appt_location"]);
         }

@@ -1,5 +1,11 @@
 <?php
 
+//PHPMailer
+//These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 function emptyInputRegister($user_name_e, $user_name_c, $user_gender, $user_date_birth, $user_place_birth, $user_address, $user_occupation, $user_hkid, $user_email, $user_pwd, $cfm_pwd) {
     $result;
     if (empty($user_name_e) || empty($user_name_c) || empty($user_gender) || empty($user_date_birth) || empty($user_place_birth) || empty($user_address) || empty($user_occupation) || empty($user_hkid) || empty($user_email) || empty($user_pwd) || empty($cfm_pwd)) {
@@ -284,8 +290,58 @@ function createAppointment($conn, $appt_location, $appt_date_time, $user_id) {
     mysqli_stmt_bind_param($stmt, "iss", $user_id, $appt_location, $appt_date_time);
     mysqli_stmt_execute($stmt);
 
+    // for confirmation message display on the appointment page
     $_SESSION["appt_date_time"] = $appt_date_time;
     $_SESSION["appt_location"] = $appt_location;
+
+    /* sending a confirmation email to user to confirm the appointment by using PHPMailer */
+    /* mailing function refer to https://github.com/PHPMailer/PHPMailer */
+
+    //Import PHPMailer classes into the global namespace
+
+    //Load Composer's autoloader
+    require '../vendor/autoload.php';
+
+    //Load Mailing Config
+    require '../mail_config.php';
+
+    //Create an instance; passing `true` enables exceptions
+    $mail = new PHPMailer(true);
+
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+        $mail->isSMTP();                                            //Send using SMTP
+        $mail->Host       = $mailhost;                              //Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+        $mail->Username   = $mailusername;                          //SMTP username
+        $mail->Password   = $mailpassword;                          //SMTP password
+        $mail->SMTPSecure = $mailSMTPSecure;                        //Enable implicit TLS encryption
+        $mail->Port       = $mailport;                              //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+        //Recipients
+        $mail->setFrom($mailusername, 'Appointment Reminder');
+        $mail->addAddress($_SESSION["user_email"], $_SESSION["user_name_e"]);        //Add a recipient
+        #$mail->addAddress('ellen@example.com');                                     //Name is optional
+        #$mail->addReplyTo('info@example.com', 'Information');
+        #$mail->addCC('cc@example.com');
+        #$mail->addBCC('bcc@example.com');
+
+        //Attachments
+        #$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+        #$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+
+        //Content
+        $mail->isHTML(true);                                  //Set email format to HTML
+        $mail->Subject = 'Confirmation of your HKID appointment booking';
+        $mail->Body    = '<h1 style="text-align:center">Confirmation of your HKID appointment booking</h1><h3>Dear '.$_SESSION["user_name_e"].',</h3><h3>You had made an appointment on <u>'.$appt_date_time.'</u> at <u>'.$appt_location.'</u>.</h3><h3>Please remember to bring along your original HKID card or other relevant documents.</h3>';
+        #$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+        $mail->send();
+        echo 'Message has been sent';
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
 
     header("location: ../appointment.php?error=none");
     exit();
