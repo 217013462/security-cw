@@ -1,5 +1,11 @@
 <?php
     session_start();
+
+    if (isset($_SESSION['LOGGED']) && (time() - $_SESSION['LOGGED'] > 900)) {
+        // user was logged in for more than 15 minutes (900 seconds)
+        session_unset();     // unset $_SESSION variable for the run-time 
+        session_destroy();   // destroy session data in storage
+    }
 ?>
 
 <html>

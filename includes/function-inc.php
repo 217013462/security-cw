@@ -249,6 +249,10 @@ function loginUser($conn, $user_email, $user_pwd) {
         $_SESSION["user_id"] = $existUser["user_id"];
         $_SESSION["user_email"] = $existUser["user_email"];
         $_SESSION["user_name_e"] = $existUser["user_name_e"];
+
+        // record user's login time for 15 minutes login session
+        $_SESSION["LOGGED"] = time();
+
         header("location: ../index.php");
         exit();
     }
