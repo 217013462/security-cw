@@ -202,12 +202,17 @@ function createUser($conn, $user_name_e, $user_name_c, $user_gender, $user_date_
         exit();
     }
 
+    // hashing password with salt
     $salt = generateSalt(16);
-
-    $hashedHKID = hash("sha512", $salt . $user_hkid);
     $hashedPwd = hash("sha512", $salt . $user_pwd);
+    
+    // get variables from config file
+    require '../config.php';
+    // encrpyting HKID
+    $cipherHKID = openssl_encrypt($user_hkid, $cipher, $key, $options, $iv, $tag);
+    $cipherIVHKID = $binary_iv . $cipherHKID;
 
-    mysqli_stmt_bind_param($stmt, "sssssssssss", $user_name_e, $user_name_c, $user_gender, $user_date_birth, $user_place_birth, $user_address, $user_occupation, $hashedHKID, $user_email, $salt, $hashedPwd);
+    mysqli_stmt_bind_param($stmt, "sssssssssss", $user_name_e, $user_name_c, $user_gender, $user_date_birth, $user_place_birth, $user_address, $user_occupation, $cipherIVHKID, $user_email, $salt, $hashedPwd);
     mysqli_stmt_execute($stmt);
 
     header("location: ../register.php?error=none");
