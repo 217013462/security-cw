@@ -13,9 +13,9 @@
 <h3>Make an appointment</h3>
 <p>Appointments available for the next 30 days</p>
 <form action="includes/appointment-inc.php" method="post" id="appt">
-    <table width="350" border="0" cellpadding="5">
+    <table width="450" border="0" cellpadding="5">
         <tr>
-            <td width="100">Date</td>
+            <td width="100" style="text-align: right">Date</td>
             <td width="200"><label for="appt_date"></label>
                 <input type="date" name="appt_date" id="appt_date" size="40"
                     min="<?php echo date("Y-m-d", strtotime("+1 day")); ?>"
@@ -24,7 +24,7 @@
         </tr>
 
         <tr>
-            <td width="100">Time</td>
+            <td width="100" style="text-align: right">Time</td>
             <td width="200"><label for="appt_time"></label>
                 <select name="appt_time" id="appt_time" required>
                     <option value="" disabled selected>Select your preference time</option>
@@ -61,7 +61,7 @@
         </tr>
 
         <tr>
-            <td width="100">Location</td>
+            <td width="100" style="text-align: right">Location</td>
             <td width="200"><label for="appt_location"></label>
                 <select name="appt_location" id="appt_location" required>
                     <option value="" disabled selected>Select your preference location</option>
@@ -85,6 +85,16 @@
         </tr>
 
         <tr>
+            <td width="250" style="text-align: right; vertical-align: top">Captcha Code</td>
+            <td width="150"><label for="captcha"></label>
+                <input type="text" name="captcha" id="captcha" size="20" required /><p></p>
+                <img src="includes/captcha.php?rand=<?php echo rand(); ?>" id="captcha_image">
+            </td>
+            <td><a href="javascript: refreshCaptcha();"><i class="fa-solid fa-arrows-rotate"></i></a>
+            </td>
+        </tr>
+
+        <tr>
             <td></td>
             <td></td>
         </tr>
@@ -101,6 +111,8 @@
 if (isset($_GET["error"])) {
     if ($_GET["error"] == "emptyinput") {
         echo "<p style='color:red;'>Please make sure all fields are filled.</p>";
+    } else if ($_GET["error"] == "unmatchcaptcha") {
+        echo "<p style='color:red;'>Captcha code incorrect.<br/>Please be reminded that it is case sensitive.</p>";
     } else if ($_GET["error"] == "sessionerror") {
         session_start();
         session_unset();

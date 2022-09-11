@@ -8,6 +8,8 @@ if (isset($_POST['submit'])) {
     $appt_date = $_POST["appt_date"];
     $appt_time = $_POST["appt_time"];
     $appt_location = $_POST["appt_location"];
+    $captcha = $_POST["captcha"];
+    $session_captcha = $_SESSION["captcha"];
 
     $appt_date_time = $appt_date." ".$appt_time;
 
@@ -17,6 +19,11 @@ if (isset($_POST['submit'])) {
     /* conect to database */
     require("../config.php");
     require("function-inc.php");
+
+    if (matchCaptcha($session_captcha, $captcha) !== false) {
+        header("location: ../appointment.php?error=unmatchcaptcha");
+        exit();
+    }
 
     if (emptyInputAppointment($appt_date, $appt_time, $appt_location) !== false) {
         header("location: ../appointment.php?error=emptyinput");
