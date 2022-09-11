@@ -23,6 +23,11 @@ if (isset($_POST['submit'])) {
     require("../config.php");
     require("function-inc.php");
     
+    if (matchCaptcha($session_captcha, $captcha) !== false) {
+        header("location: ../register.php?error=unmatchcaptcha");
+        exit();
+    }
+    
     if (emptyInputRegister($user_name_e, $user_name_c, $user_gender, $user_date_birth, $user_place_birth, $user_address, $user_occupation, $user_hkid, $user_email, $user_pwd, $cfm_pwd, $captcha) !== false) {
         header("location: ../register.php?error=emptyinput");
         exit();
@@ -70,11 +75,6 @@ if (isset($_POST['submit'])) {
     
     if (existHKID($conn, $user_hkid) !== false) {
         header("location: ../register.php?error=existedhkid");
-        exit();
-    }
-    
-    if (matchCaptcha($session_captcha, $captcha) !== false) {
-        header("location: ../register.php?error=unmatchcaptcha");
         exit();
     }
 

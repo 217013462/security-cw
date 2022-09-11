@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 //PHPMailer
 //These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
@@ -9,7 +7,6 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 function matchCaptcha($session_captcha, $captcha) {
-    session_start();
     $result;
     // check if the captcha entered correctly (case sensitive)
     if(strcmp($session_captcha, $captcha) != 0) {

@@ -15,6 +15,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Online Appointment Booking System of Hong Kong Identity Cards</title>
     <style>
     body {
@@ -70,6 +73,16 @@
                 }
                 
             ?>
-            
+
         </ul>
     </nav>
+
+    <script>
+    //Refresh Captcha
+    function refreshCaptcha() {
+        var img = document.images['captcha_image'];
+        img.src = img.src.substring(
+            0, img.src.lastIndexOf("?")
+        ) + "?rand=" + Math.random() * 1000;
+    }
+    </script>
