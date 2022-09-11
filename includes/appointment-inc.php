@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
     $user_email = $_SESSION["user_email"];
 
     /* conect to database */
-    require("../connect_db.php");
+    require("../config.php");
     require("function-inc.php");
 
     if (emptyInputAppointment($appt_date, $appt_time, $appt_location) !== false) {

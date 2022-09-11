@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
     $user_pwd = $_POST["user_pwd"];
 
     /* conect to database */
-    require("../connect_db.php");
+    require("../config.php");
     require("function-inc.php");
 
     if (emptyInputLogin($user_email, $user_pwd) !== false) {

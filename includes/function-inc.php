@@ -307,7 +307,7 @@ function createAppointment($conn, $appt_location, $appt_date_time, $user_id) {
     require '../vendor/autoload.php';
 
     //Load Mailing Config
-    require '../mail_config.php';
+    require '../config.php';
 
     //Create an instance; passing `true` enables exceptions
     $mail = new PHPMailer(true);

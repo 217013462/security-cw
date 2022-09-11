@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
     $cfm_pwd = $_POST["cfm_pwd"];    
     
     /* conect to database */
-    require("../connect_db.php");
+    require("../config.php");
     require("function-inc.php");
     
     if (emptyInputRegister($user_name_e, $user_name_c, $user_gender, $user_date_birth, $user_place_birth, $user_address, $user_occupation, $user_hkid, $user_email, $user_pwd, $cfm_pwd) !== false) {
