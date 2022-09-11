@@ -53,6 +53,11 @@ if (isset($_POST['submit'])) {
         exit();
     }
     
+    if (HKIDCheckDigit($user_hkid) !== false) {
+        header("location: ../register.php?error=incorrecthkid");
+        exit();
+    }
+    
     if (invalidPwd($user_pwd) !== false) {
         header("location: ../register.php?error=invalidpassword");
         exit();

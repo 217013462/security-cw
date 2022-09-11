@@ -11,12 +11,25 @@ class ComposerStaticInit2658d624b7a19fca81e141321e5dc586
         array (
             'PHPMailer\\PHPMailer\\' => 20,
         ),
+        'I' => 
+        array (
+            'Ilex\\Validation\\HkidValidation\\' => 31,
+            'Ilex\\ResultOption\\' => 18,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'Ilex\\Validation\\HkidValidation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ilexn/hkid-check-digit/src',
+        ),
+        'Ilex\\ResultOption\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ilexn/result-option/src',
         ),
     );
 

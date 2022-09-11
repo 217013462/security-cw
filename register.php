@@ -131,6 +131,8 @@
             echo "<p style='color:red;'>Please input at least 2 English words start with capital letter.</p>";
         } else if ($_GET["error"] == "invalidhkid") {
             echo "<p style='color:red;'>Please input a valid HKID.<br/>A valid HKID starts with 1-2 capital letters, follow by 6 numbers, and end with a number or A inside a parentheses.</p>";
+        } else if ($_GET["error"] == "incorrecthkid") {
+            echo "<p style='color:red;'>The pattern or digit of the inputted HKID is incorrect.<br/>Please input a valid HKID.</p>";
         } else if ($_GET["error"] == "invalidpassword") {
             echo "<p style='color:red;'>Please input a valid password.<br/>It should be combine with at least 1 uppercase letter, 1 lowercase letter, 1 number, 1 special character, with mpre than 8 characters.</p>";
         } else if ($_GET["error"] == "spacepassword") {
