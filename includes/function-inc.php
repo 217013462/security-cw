@@ -1,14 +1,30 @@
 <?php
 
+session_start();
+
 //PHPMailer
 //These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-function emptyInputRegister($user_name_e, $user_name_c, $user_gender, $user_date_birth, $user_place_birth, $user_address, $user_occupation, $user_hkid, $user_email, $user_pwd, $cfm_pwd) {
+function matchCaptcha($session_captcha, $captcha) {
+    session_start();
     $result;
-    if (empty($user_name_e) || empty($user_name_c) || empty($user_gender) || empty($user_date_birth) || empty($user_place_birth) || empty($user_address) || empty($user_occupation) || empty($user_hkid) || empty($user_email) || empty($user_pwd) || empty($cfm_pwd)) {
+    // check if the captcha entered correctly (case sensitive)
+    if(strcmp($session_captcha, $captcha) != 0) {
+        // unmatch captcha code
+        $result = true;
+    } else {
+        // matching captcha code
+        $result = false;
+    }
+    return $result;
+}
+
+function emptyInputRegister($user_name_e, $user_name_c, $user_gender, $user_date_birth, $user_place_birth, $user_address, $user_occupation, $user_hkid, $user_email, $user_pwd, $cfm_pwd, $captcha) {
+    $result;
+    if (empty($user_name_e) || empty($user_name_c) || empty($user_gender) || empty($user_date_birth) || empty($user_place_birth) || empty($user_address) || empty($user_occupation) || empty($user_hkid) || empty($user_email) || empty($user_pwd) || empty($cfm_pwd) || empty($captcha)) {
         // some of the fields are empty, return error is true
         $result = true;
     } else {

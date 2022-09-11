@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 // check if it is access in a proper way
 if (isset($_POST['submit'])) {
     /* Get form data */
@@ -12,14 +14,16 @@ if (isset($_POST['submit'])) {
     $user_occupation = $_POST["user_occupation"];
     $user_hkid = $_POST["user_hkid"];
     $user_email = $_POST["user_email"];
-    $user_pwd = $_POST["user_pwd"];    
-    $cfm_pwd = $_POST["cfm_pwd"];    
+    $user_pwd = $_POST["user_pwd"];
+    $cfm_pwd = $_POST["cfm_pwd"];
+    $captcha = $_POST["captcha"];
+    $session_captcha = $_SESSION["captcha"];
     
     /* conect to database */
     require("../config.php");
     require("function-inc.php");
     
-    if (emptyInputRegister($user_name_e, $user_name_c, $user_gender, $user_date_birth, $user_place_birth, $user_address, $user_occupation, $user_hkid, $user_email, $user_pwd, $cfm_pwd) !== false) {
+    if (emptyInputRegister($user_name_e, $user_name_c, $user_gender, $user_date_birth, $user_place_birth, $user_address, $user_occupation, $user_hkid, $user_email, $user_pwd, $cfm_pwd, $captcha) !== false) {
         header("location: ../register.php?error=emptyinput");
         exit();
     }
@@ -66,6 +70,11 @@ if (isset($_POST['submit'])) {
     
     if (existHKID($conn, $user_hkid) !== false) {
         header("location: ../register.php?error=existedhkid");
+        exit();
+    }
+    
+    if (matchCaptcha($session_captcha, $captcha) !== false) {
+        header("location: ../register.php?error=unmatchcaptcha");
         exit();
     }
 

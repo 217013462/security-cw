@@ -2,28 +2,38 @@
     include_once 'header.php'
 ?>
 
+<script>
+//Refresh Captcha
+function refreshCaptcha(){
+    var img = document.images['captcha_image'];
+    img.src = img.src.substring(
+		0,img.src.lastIndexOf("?")
+		)+"?rand="+Math.random()*1000;
+}
+</script>
+
 <h3>Register Form</h3>
 <p>Fill in the following form for apply or replace your HKID</p>
 <form action="includes/register-inc.php" method="post" id="register">
     <table width="900" border="0" cellpadding="5">
         <tr>
-            <td width="250">English Name on ID Card</td>
+            <td width="250" style="text-align: right">English Name on ID Card</td>
             <td width="350"><label for="user_name_e"></label>
-                <input type="text" name="user_name_e" id="user_name_e" size="45" required/>
+                <input type="text" name="user_name_e" id="user_name_e" size="45" required />
             </td>
             <td width="250" style="color:grey; font-size:small;">At least 2 English words start with capital letter</td>
         </tr>
 
         <tr>
-            <td width="250">Chinese Name on ID Card</td>
+            <td width="250" style="text-align: right">Chinese Name on ID Card</td>
             <td width="350"><label for="user_name_c"></label>
-                <input type="text" name="user_name_c" id="user_name_c" size="45" required/>
+                <input type="text" name="user_name_c" id="user_name_c" size="45" required />
             </td>
             <td width="250" style="color:grey; font-size:small;">At least 2 Chinese characters</td>
         </tr>
 
         <tr>
-            <td width="250">Gender</td>
+            <td width="250" style="text-align: right">Gender</td>
             <td width="350">
                 <input type="radio" id="user_gender" name="user_gender" value="Male" required>
                 <label for="Male">Male</label>
@@ -35,71 +45,85 @@
         </tr>
 
         <tr>
-            <td width="250">Date of Birth</td>
+            <td width="250" style="text-align: right">Date of Birth</td>
             <td width="350"><label for="user_date_birth"></label>
-                <input type="date" id="user_date_birth" name="user_date_birth" max="<?php echo date("Y-m-d"); ?>" required>
+                <input type="date" id="user_date_birth" name="user_date_birth" max="<?php echo date("Y-m-d"); ?>"
+                    required>
                 <!-- restrict user from selecting date in the future -->
             </td>
         </tr>
 
         <tr>
-            <td width="250">Place of Birth</td>
+            <td width="250" style="text-align: right">Place of Birth</td>
             <td width="350"><label for="user_place_birth"></label>
-                <input type="text" name="user_place_birth" id="user_place_birth"  size="45" required/>
+                <input type="text" name="user_place_birth" id="user_place_birth" size="45" required />
             </td>
         </tr>
 
         <tr>
-            <td width="250">Address</td>
+            <td width="250" style="text-align: right">Address</td>
             <td width="350"><label for="user_address"></label>
-                <input type="text" name="user_address" id="user_address" size="45" required/>
+                <input type="text" name="user_address" id="user_address" size="45" required />
             </td>
         </tr>
 
         <tr>
-            <td width="250">Occupation</td>
+            <td width="250" style="text-align: right">Occupation</td>
             <td width="350"><label for="user_occupation"></label>
-                <input type="text" name="user_occupation" id="user_occupation" size="45" required/>
+                <input type="text" name="user_occupation" id="user_occupation" size="45" required />
             </td>
         </tr>
 
         <tr>
-            <td width="250">HK ID Card Number</td>
+            <td width="250" style="text-align: right">HK ID Card Number</td>
             <td width="350"><label for="user_hkid"></label>
-                <input type="text" name="user_hkid" id="user_hkid" size="45" placeholder="C668668(E)" required/>
+                <input type="text" name="user_hkid" id="user_hkid" size="45" placeholder="C668668(E)" required />
             </td>
         </tr>
 
         <tr>
-            <td width="250">E-mail Address</td>
+            <td width="250" style="text-align: right">E-mail Address</td>
             <td width="350"><label for="user_email"></label>
-                <input type="text" name="user_email" id="user_email" size="45" placeholder="hkid@example.com" required/>
+                <input type="text" name="user_email" id="user_email" size="45" placeholder="hkid@example.com"
+                    required />
             </td>
         </tr>
 
         <tr>
-            <td width="250">Password</td>
+            <td width="250" style="text-align: right">Password</td>
             <td width="350"><label for="user_pwd"></label>
-                <input type="password" name="user_pwd" id="user_pwd" size="45" required/>
+                <input type="password" name="user_pwd" id="user_pwd" size="45" required />
             </td>
-            <td width="250" style="color:grey; font-size:small;">8 or more characters with 1 lowercase, 1 uppercase, 1 number, 1 special character (No space)</td>
+            <td width="250" style="color:grey; font-size:small;">8 or more characters with 1 lowercase, 1 uppercase, 1
+                number, 1 special character (No space)</td>
         </tr>
 
         <tr>
-            <td width="250">Confirm Password</td>
+            <td width="250" style="text-align: right">Confirm Password</td>
             <td width="350"><label for="cfm_pwd"></label>
-                <input type="password" name="cfm_pwd" id="cfm_pwd" size="45" required/>
+                <input type="password" name="cfm_pwd" id="cfm_pwd" size="45" required />
             </td>
         </tr>
-        
-        <tr><td></td></tr>
-        <tr><td></td></tr>
+
+        <tr>
+            <td width="250" style="text-align: right; vertical-align: bottom">Captcha Code</td>
+            <td width="150"><label for="captcha"></label>
+                <input type="text" name="captcha" id="captcha" size="15" required />
+                <img src="includes/captcha.php?rand=<?php echo rand(); ?>" id="captcha_image">
+            </td>
+            <td width="250"><a style="color:grey; font-size:small;" href="javascript: refreshCaptcha();">Refresh captcha</a>
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+        </tr>
 
         <tr>
             <td>&nbsp;</td>
             <td style="text-align:center"><input name="submit" type="submit" value="Submit"></td>
         </tr>
-        
+
     </table>
 </form>
 
@@ -125,6 +149,8 @@
             echo "<p style='color:red;'>The E-mail is already registered.<br/>Please login or use another e-mail.</p>";
         } else if ($_GET["error"] == "existedhkid") {
             echo "<p style='color:red;'>The HKID is already registered under another e-mail.<br/>Please check again or login with registered e-mail.</p>";
+        } else if ($_GET["error"] == "unmatchcaptcha") {
+            echo "<p style='color:red;'>Captcha code incorrect.<br/>Please be reminded that it is case sensitive.</p>";
         } else if ($_GET["error"] == "stmtfailed") {
             echo "<p style='color:red;'>Something went wrong. Please try again.</p>";
         } else if ($_GET["error"] == "none") {
