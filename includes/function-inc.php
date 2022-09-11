@@ -209,7 +209,7 @@ function createUser($conn, $user_name_e, $user_name_c, $user_gender, $user_date_
     // get variables from config file
     require '../config.php';
     // encrpyting HKID
-    $cipherHKID = openssl_encrypt($user_hkid, $cipher, $key, $options, $iv, $tag);
+    $cipherHKID = openssl_encrypt($user_hkid, $cipher, $key, $options, $iv);
     $cipherIVHKID = $binary_iv . $cipherHKID;
 
     mysqli_stmt_bind_param($stmt, "sssssssssss", $user_name_e, $user_name_c, $user_gender, $user_date_birth, $user_place_birth, $user_address, $user_occupation, $cipherIVHKID, $user_email, $salt, $hashedPwd);

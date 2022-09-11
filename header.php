@@ -5,6 +5,8 @@
         // user was logged in for more than 15 minutes (900 seconds)
         session_unset();     // unset $_SESSION variable for the run-time 
         session_destroy();   // destroy session data in storage
+        header("Location: login.php?error=expiredsession");
+        exit();
     }
 ?>
 

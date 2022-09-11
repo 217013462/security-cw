@@ -3,8 +3,9 @@
 ?>
 
 <?php
-    if(!isset($_SESSION['user_name_e'])) {
-        header("location: ../cw/login.php");
+    if (!isset($_SESSION["user_email"])) {
+        // redirect user to login if user try to access without a valid access
+        header("Location: login.php?error=invalidaccess");
         exit();
     }
 ?>

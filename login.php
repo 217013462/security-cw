@@ -41,6 +41,10 @@
             echo "<p style='color:red;'>E-mail has not been registered. Please register before logging in.</p>";
         } else if ($_GET["error"] == "wrongpassword") {
             echo "<p style='color:red;'>Incorrect password. Please try again.</p>";
+        } else if ($_GET["error"] == "expiredsession") {
+            echo "<p style='color:red;'>Login session expired.</br>You have been forced to logout for security reason.</br>Please login again if you wish make an appointment.</p>";
+        } else if ($_GET["error"] == "invalidaccess") {
+            echo "<p style='color:red;'>Invalid access!</br>Please login and authenticate before accessing restricted pages.</p>";
         }
     }
 ?>
