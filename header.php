@@ -59,6 +59,7 @@
             <?php
 
                 if (isset($_SESSION["user_email"])) {
+                    echo "<li><a href='profile.php'>Profile</a></li>";
                     echo "<li><a href='appointment.php'>Appointment</a></li>";
                     echo "<li style='float:right'><a href='includes/logout-inc.php'>Logout</a></li>";
                 } else {
