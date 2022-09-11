@@ -2,16 +2,6 @@
     include_once 'header.php'
 ?>
 
-<script>
-//Refresh Captcha
-function refreshCaptcha(){
-    var img = document.images['captcha_image'];
-    img.src = img.src.substring(
-		0,img.src.lastIndexOf("?")
-		)+"?rand="+Math.random()*1000;
-}
-</script>
-
 <h3>Register Form</h3>
 <p>Fill in the following form for apply or replace your HKID</p>
 <form action="includes/register-inc.php" method="post" id="register">
@@ -111,7 +101,7 @@ function refreshCaptcha(){
                 <input type="text" name="captcha" id="captcha" size="15" required />
                 <img src="includes/captcha.php?rand=<?php echo rand(); ?>" id="captcha_image">
             </td>
-            <td width="250"><a style="color:grey; font-size:small;" href="javascript: refreshCaptcha();">Refresh captcha</a>
+            <td><a href="javascript: refreshCaptcha();"><i class="fa-solid fa-arrows-rotate"></i></a>
             </td>
         </tr>
 
@@ -131,6 +121,8 @@ function refreshCaptcha(){
     if (isset($_GET["error"])) {
         if ($_GET["error"] == "emptyinput") {
             echo "<p style='color:red;'>Please make sure all fields are filled.</p>";
+        } else if ($_GET["error"] == "unmatchcaptcha") {
+            echo "<p style='color:red;'>Captcha code incorrect.<br/>Please be reminded that it is case sensitive.</p>";
         } else if ($_GET["error"] == "invalidemail") {
             echo "<p style='color:red;'>Please input a valid E-mail address.</p>";
         } else if ($_GET["error"] == "invalidcname") {
@@ -149,8 +141,6 @@ function refreshCaptcha(){
             echo "<p style='color:red;'>The E-mail is already registered.<br/>Please login or use another e-mail.</p>";
         } else if ($_GET["error"] == "existedhkid") {
             echo "<p style='color:red;'>The HKID is already registered under another e-mail.<br/>Please check again or login with registered e-mail.</p>";
-        } else if ($_GET["error"] == "unmatchcaptcha") {
-            echo "<p style='color:red;'>Captcha code incorrect.<br/>Please be reminded that it is case sensitive.</p>";
         } else if ($_GET["error"] == "stmtfailed") {
             echo "<p style='color:red;'>Something went wrong. Please try again.</p>";
         } else if ($_GET["error"] == "none") {
