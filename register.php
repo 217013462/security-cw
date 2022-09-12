@@ -67,7 +67,7 @@
         <tr>
             <td width="250" style="text-align: right">HK ID Card Number</td>
             <td width="350"><label for="user_hkid"></label>
-                <input type="text" name="user_hkid" id="user_hkid" size="45" placeholder="C668668(E)" required />
+                <input type="password" name="user_hkid" id="user_hkid" size="45" placeholder="C668668(E)" required />
             </td>
         </tr>
 
