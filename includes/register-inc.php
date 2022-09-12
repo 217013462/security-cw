@@ -9,9 +9,9 @@ if (isset($_POST['submit'])) {
     $user_name_c = $_POST["user_name_c"];
     $user_gender = $_POST["user_gender"];
     $user_date_birth = $_POST["user_date_birth"];
-    $user_place_birth = $_POST["user_place_birth"];
-    $user_address = $_POST["user_address"];
-    $user_occupation = $_POST["user_occupation"];
+    $user_place_birth = htmlspecialchars($_POST["user_place_birth"]);
+    $user_address = htmlspecialchars($_POST["user_address"]);
+    $user_occupation = htmlspecialchars($_POST["user_occupation"]);
     $user_hkid = $_POST["user_hkid"];
     $user_email = $_POST["user_email"];
     $user_pwd = $_POST["user_pwd"];
