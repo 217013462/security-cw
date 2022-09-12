@@ -1,13 +1,10 @@
 <?php
 
 //PHPMailer
+//These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-
-//HKID-Check-Digit
-use Ilex\Validation\HkidValidation\Enum\Reason;
-use Ilex\Validation\HkidValidation\Helper;
 
 function matchCaptcha($session_captcha, $captcha) {
     $result;
@@ -84,29 +81,6 @@ function invalidHKID($user_hkid) {
         $result = false;
     }
     return $result;
-}
-
-function HKIDCheckDigit($user_hkid) {
-    $result;
-
-    // use HKID-Check-Digit to do a further checking
-    // reference :: https://github.com/iLexN/HKID-Check-Digit
-
-    require_once '../vendor/autoload.php';
-
-    $hkid = Helper::checkByString($user_hkid);
-
-    switch ($hkid->getReason()){
-        case \Ilex\Validation\HkidValidation\Enum\Reason::Ok:
-            $result = false;
-            break;
-        case \Ilex\Validation\HkidValidation\Enum\Reason::PattenError:
-            $result = true;
-            break;
-        case \Ilex\Validation\HkidValidation\Enum\Reason::DigitError:
-            $result = true;
-            break;
-        }
 }
 
 function invalidPwd($user_pwd) {
