@@ -2,6 +2,14 @@
     include_once 'header.php'
 ?>
 
+<?php
+if (isset($_SESSION["user_email"])) {
+    // redirect user to index page as user already logged in
+    header("Location: index.php");
+    exit();
+}
+?>
+
 <h3>Login Form</h3>
 <form action="includes/login-inc.php" method="post" id="login">
     <table width="550" border="0" cellpadding="5">

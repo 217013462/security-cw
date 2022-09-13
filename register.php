@@ -2,6 +2,14 @@
     include_once 'header.php'
 ?>
 
+<?php
+if (isset($_SESSION["user_email"])) {
+    // redirect user to index page as user already logged in
+    header("Location: index.php");
+    exit();
+}
+?>
+
 <h3>Register Form</h3>
 <p>Fill in the following form for apply or replace your HKID</p>
 <form action="includes/register-inc.php" method="post" id="register">
