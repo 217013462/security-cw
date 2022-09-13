@@ -74,7 +74,7 @@
         <tr>
             <td width="250" style="text-align: right">E-mail Address</td>
             <td width="350"><label for="user_email"></label>
-                <input type="text" name="user_email" id="user_email" size="45" placeholder="hkid@example.com"
+                <input type="email" name="user_email" id="user_email" size="45" placeholder="hkid@example.com"
                     required />
             </td>
         </tr>
